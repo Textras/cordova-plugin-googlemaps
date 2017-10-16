@@ -1,6 +1,12 @@
 /* global cordova, plugin, CSSPrimitiveValue */
+
 var cordova_exec = require('cordova/exec');
 var isSuspended = false;
+
+// Super nasty hack to handle unnecessary 50ms dom traversal when the map is hidden.
+window.preventMap = true;
+
+
 if (!cordova) {
   document.addEventListener("deviceready", function() {
     isSuspended = true;
@@ -40,6 +46,8 @@ if (!cordova) {
   var INTERVAL_TIMER = null;
   var MAPS = {};
   var saltHash = Math.floor(Math.random() * Date.now());
+
+
 
   /*****************************************************************************
    * To prevent strange things happen,
@@ -105,7 +113,18 @@ if (!cordova) {
       return;
     }
 
-    //setTimeout(function() {
+
+      setInterval(function() {
+
+        // Show the map when preventMap becomes false;
+        if(!window.preventMap){
+            putHtmlElements();
+        }
+
+      }, 50);
+
+
+      //setTimeout(function() {
       // Webkit redraw mandatory
       // http://stackoverflow.com/a/3485654/697856
       document.body.style.backgroundColor = "rgba(0,0,0,0)";
@@ -165,6 +184,12 @@ if (!cordova) {
     }
 
     function putHtmlElements() {
+
+      if(preventMap){
+        return false;
+      }
+
+
       var mapIDs = Object.keys(MAPS);
       if (isChecking) {
         return;
