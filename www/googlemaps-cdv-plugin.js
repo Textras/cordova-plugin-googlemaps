@@ -185,9 +185,9 @@ if (!cordova) {
 
     function putHtmlElements() {
 
-      if(preventMap){
+      //if(preventMap){
         return false;
-      }
+      //}
 
 
       var mapIDs = Object.keys(MAPS);
