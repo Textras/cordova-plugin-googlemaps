@@ -4,7 +4,7 @@ var cordova_exec = require('cordova/exec');
 var isSuspended = false;
 
 // Super nasty hack to handle unnecessary 50ms dom traversal when the map is hidden.
-window.preventMap = true;
+// window.preventMap = true;
 
 
 if (!cordova) {
@@ -117,9 +117,9 @@ if (!cordova) {
       setInterval(function() {
 
         // Show the map when preventMap becomes false;
-        if(!window.preventMap){
+        //if(!window.preventMap){
             putHtmlElements();
-        }
+        //}
 
       }, 50);
 
