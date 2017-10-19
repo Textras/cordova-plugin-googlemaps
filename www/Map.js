@@ -169,18 +169,23 @@ Map.prototype.getMap = function(mapId, div, options) {
       //------------------------------------------------------------------------
       var div = self.get("div");
       if (common.isDom(div)) {
-        while (div.parentNode) {
+          function finish() {
+            console.log("finish running");
             div.style.backgroundColor = 'rgba(0,0,0,0)';
-
+            className = div.className;
             // prevent multiple readding the class
             if (div.classList && !div.classList.contains('_gmaps_cdv_')) {
                 div.classList.add('_gmaps_cdv_');
-            } else if (div.className && div.className.indexOf('_gmaps_cdv_') === -1) {
+            } else if (div.className && !div.className.indexOf('_gmaps_cdv_') == -1) {
                 div.className = div.className + ' _gmaps_cdv_';
-            }
-
-            div = div.parentNode;
+          }
+          div = div.parentNode;
+          if(!div.parentNode) {
+            console.log("finish done");
+            clearInterval(t_i);
+          }
         }
+        var t_i = setInterval(finish, 1000);
       }
       //------------------------------------------------------------------------
       // In order to work map.getVisibleRegion() correctly, wait a little.
