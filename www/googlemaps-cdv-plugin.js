@@ -120,7 +120,7 @@ if (!cordova) {
         if(!window.preventMap){
             putHtmlElements();
         }
-      }, 50);
+      }, 1000);
 
 
       //setTimeout(function() {
@@ -172,7 +172,7 @@ if (!cordova) {
           return;
         }
         followMapDivPositionOnly();
-      }, 50);
+      }, 1000);
     }
 
     function onTouchStart() {
